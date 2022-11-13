@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:simple_gradient_text/simple_gradient_text.dart';
+import './details_page.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -59,8 +60,12 @@ class _DashboardPageState extends State<DashboardPage> {
           height: size.height - 150,
           child: ListView(
             children: [
-              _buildListItem('assets/risotto.jpg', 'Risotto',
-                  'A traditional Italian rice dish made from a short-grained, starchy variety of rice called Arborio rice')
+              _buildListItem('assets/indian.jpg', 'Indian',
+                  'One of the world\'s most diverse cuisines, characterized by its sophisticated and subtle use of the many spices, vegetables, grains and fruits grown across India'),
+              _buildListItem('assets/French.jpg', 'French',
+                  'With its formal techniques, emphasis on fresh ingredients and simple flavors, pride in presentation, and rich and colorful history, French cuisine truly has come to rule the world'),
+              _buildListItem('assets/risotto.jpg', 'Italian',
+                  'Italian cuisine ranks alongside French cuisine in terms of worldwide fame. Pizza and pasta have become world dishes'),
             ],
           ),
         ),
@@ -80,8 +85,13 @@ class _DashboardPageState extends State<DashboardPage> {
               image: DecorationImage(
                 image: Image.asset(imgPath).image,
                 fit: BoxFit.fill,
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(0.6), BlendMode.darken),
               ), // or AssetImage(imgPath)
             ),
+
+            //FOR BLURRING THE IMAGE
+
             child: ClipRect(
               child: BackdropFilter(
                 filter: ImageFilter.blur(sigmaX: 2.0, sigmaY: 2.0),
@@ -102,10 +112,10 @@ class _DashboardPageState extends State<DashboardPage> {
                 GradientText(
                   food,
                   style: const TextStyle(
-                    fontSize: 40.0,
+                    fontSize: 30,
                   ),
                   colors: const [
-                    Color.fromARGB(255, 26, 26, 26),
+                    Color.fromARGB(255, 255, 255, 255),
                     Color.fromARGB(255, 0, 146, 133),
                   ],
                 ),
@@ -114,11 +124,24 @@ class _DashboardPageState extends State<DashboardPage> {
                   child: Text(
                     desc,
                     style: const TextStyle(
-                      color: Color.fromARGB(255, 0, 0, 0),
+                      color: Color.fromARGB(255, 255, 255, 255),
                       fontSize: 12,
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 50,
+                ),
+                TextButton(
+                  style: TextButton.styleFrom(
+                    foregroundColor: const Color.fromARGB(255, 99, 246, 204),
+                  ),
+                  child: const Text('Read More'),
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) => DetailsPage(imgPath:imgPath, title: food,)));
+                  },
+                )
               ],
             ),
           ),
